@@ -1,15 +1,28 @@
 import React from "react";
-import { hot } from "react-hot-loader";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import styled from "styled-components";
+import NavBar from "./components/NavBar";
+import GlobalStyles from "./lib/styles/GlobalStyles";
 
 const App = () => {
   return (
-    <AppContainer>
-      <h1>Hello from React!</h1>
-    </AppContainer>
+    <HashRouter>
+      <GlobalStyles />
+      <AppContainer>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<div></div>} />
+          <Route path="/todos" element={<div></div>} />
+          <Route path="/clips" element={<div></div>} />
+          <Route path="/videos" element={<div></div>} />
+        </Routes>
+      </AppContainer>
+    </HashRouter>
   );
 };
 
-export default hot(module)(App);
+export default App;
 
-const AppContainer = styled.div``;
+const AppContainer = styled.div`
+  display: flex;
+`;
