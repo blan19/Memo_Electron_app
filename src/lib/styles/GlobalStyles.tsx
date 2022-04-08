@@ -35,6 +35,14 @@ export default createGlobalStyle`
     box-sizing: border-box;
   }
 
+  h1,h2 {
+    margin: 0;
+  }
+
+  p {
+    margin: 0;
+  }
+
   ul,
   li {
     list-style: none;
