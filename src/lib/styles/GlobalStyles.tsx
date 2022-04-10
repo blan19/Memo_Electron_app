@@ -3,11 +3,28 @@ import { normalize } from "styled-normalize";
 
 export default createGlobalStyle`
   ${normalize}
+  @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;1,100;1,300;1,400;1,700&display=swap');
+  :root {
+    /* Color */
+    --color-bgColor: #FFFFFF;
+    --color-subBgColor: #e9ecef;
+    --color-primaryText: #000;
+    --color-rPrimaryText: #fff;
+    --color-subText: #adb5bd;
+    --color-mainColor: #495057;
+    /* Font */
+    --font-title-1: ;
+    --font-title-2: 3rem;
+    --font-sub-1: ;
+    --font-sub-2: 1.5rem;
+    --font-main-1: 2rem;
+    --font-icon-1: ;
+    --font-icon-2: ;
+  }
 
   html,
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Lato', --apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     background-color: #fff;
     font-size: 62.5%;
     @media screen and (max-width: 1280px) {

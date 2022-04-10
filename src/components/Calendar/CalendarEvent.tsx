@@ -1,14 +1,37 @@
-import React, { useState } from "react";
-import FullCalendar from "@fullcalendar/react";
+import React, { useCallback, useEffect, useState } from "react";
+import FullCalendar, { DateSelectArg } from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "reducers";
+import CalendarModal from "./CalendarModal";
+import Modal from "../Modal";
+import { CalendarEventContainer } from "./Calendar.styles";
+import { addSelect } from "@/reducers/eventSlice";
 
 const CalendarEvent = () => {
-  const event = useSelector((state: RootState) => state.event);
+  // * Calendar State
   const [show, setShow] = useState(false);
+  // * Calendar Redux
+  const { events, select } = useSelector((state: RootState) => state.event);
+  const dispatch = useDispatch();
+
+  // * Calendar Event
+  const onHandleSelectEvent = useCallback((selectInfo: DateSelectArg) => {
+    setShow(true);
+    console.log(selectInfo);
+    dispatch(
+      addSelect({
+        allDay: selectInfo.allDay,
+        start: selectInfo.startStr,
+        end: selectInfo.endStr,
+      })
+    );
+  }, []);
+
+  useEffect(() => {
+    console.log(events);
+  }, [events]);
   return (
     <CalendarEventContainer>
       <FullCalendar
@@ -17,34 +40,21 @@ const CalendarEvent = () => {
         selectable={true}
         selectMirror={true}
         dayMaxEvents={true}
+        slotMinTime="00:00"
         locale="ko"
+        height="60rem"
         initialView="dayGridMonth"
-        initialEvents={event}
+        events={events}
+        // * event
+        select={onHandleSelectEvent}
+        eventDrop={(arg) => console.log(arg)}
+        eventResize={(arg) => console.log(arg)}
       />
+      <Modal show={show} setShow={setShow}>
+        <CalendarModal dispatch={dispatch} setShow={setShow} select={select} />
+      </Modal>
     </CalendarEventContainer>
   );
 };
 
 export default CalendarEvent;
-
-const CalendarEventContainer = styled.section`
-  width: 55rem;
-  padding: 0 15px;
-  margin-top: 5px;
-
-  /* calendar-root */
-  .fc {
-    width: 100%;
-  }
-
-  /* calendar-title */
-  .fc-toolbar-title {
-    font-size: 20px !important;
-    color: #495057 !important;
-  }
-
-  /* calendar-daygrid */
-  .fc-daygrid {
-    margin-top: 10px;
-  }
-`;

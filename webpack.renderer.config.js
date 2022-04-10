@@ -30,6 +30,8 @@ module.exports = {
     alias: {
       "@/components": path.resolve(__dirname, "./src/components"),
       "@/lib": path.resolve(__dirname, "./src/lib"),
+      "@/reducers": path.resolve(__dirname, "./src/reducers"),
+      "@/types": path.resolve(__dirname, "./src/types"),
     },
     extensions: [".js", ".ts", ".jsx", ".tsx", ".css"],
   },

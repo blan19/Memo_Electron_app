@@ -1,32 +1,16 @@
 import React from "react";
-import styled from "styled-components";
+import { CalendarScheduleContainer } from "./Calendar.styles";
+import dayjs from "dayjs";
 
 const CalendarSchedule = () => {
   return (
     <CalendarScheduleContainer>
       <div className="schedule-title">
         <h1>Today's schedule</h1>
-        <p>{String(new Date())}</p>
+        <p>{dayjs(new Date()).format("YYYY년 MM월 DD일")}</p>
       </div>
     </CalendarScheduleContainer>
   );
 };
 
 export default CalendarSchedule;
-
-const CalendarScheduleContainer = styled.section`
-  flex: 1;
-  padding: 0 15px;
-  margin-top: 5px;
-  /* schedule - title */
-  .schedule-title {
-    h1 {
-      font-size: 20px;
-      color: #495057;
-    }
-    p {
-      font-size: 15px;
-      color: #adb5bd;
-    }
-  }
-`;

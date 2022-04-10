@@ -1,23 +1,32 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { EventInput } from "@fullcalendar/react";
+import { SelectType } from "@/types/events.type";
 
-const initialState: EventInput[] = [
-  {
-    id: "123124124",
-    title: "Test-1",
-  },
-  {
-    id: "wfmkm12m312",
-    title: "Test-2",
-  },
-];
+interface EventType {
+  events: EventInput[];
+  select: SelectType | null;
+}
+
+const initialState: EventType = {
+  events: [],
+  select: null,
+};
 
 export const eventSlice = createSlice({
   name: "event",
   initialState,
-  reducers: {},
+  reducers: {
+    addSelect: (state, action: PayloadAction<SelectType>) => {
+      const { allDay, start, end } = action.payload;
+      state.select = { allDay, start, end };
+    },
+    resetSelect: (state) => (state.select = null),
+    addEvents: (state, action: PayloadAction<EventInput>) => {
+      state.events.push(action.payload);
+    },
+  },
 });
 
-export const {} = eventSlice.actions;
+export const { addSelect, resetSelect, addEvents } = eventSlice.actions;
 
 export default eventSlice.reducer;

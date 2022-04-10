@@ -13,7 +13,9 @@
     "resolveJsonModule": true,
     "paths": {
       "@/components/*": ["components/*"],
-      "@/lib/*": ["lib/*"]
+      "@/lib/*": ["lib/*"],
+      "@/reducers/*": ["reducers/*"],
+      "@/types/*": ["types/*"]
     }
   },
   "include": ["src/**/*"],
