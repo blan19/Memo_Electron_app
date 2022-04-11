@@ -1,5 +1,4 @@
-import CalendarEvent from "@/components/Calendar/CalendarEvent";
-import CalendarSchedule from "@/components/Calendar/CalendarSchedule";
+import { CalendarSchedule, CalendarEvent } from "@/components/Calendar";
 import React from "react";
 import styled from "styled-components";
 

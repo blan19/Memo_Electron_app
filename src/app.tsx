@@ -4,6 +4,7 @@ import styled from "styled-components";
 import NavBar from "./components/NavBar";
 import GlobalStyles from "./lib/styles/GlobalStyles";
 
+const Login = lazy(() => import("./pages/Login"));
 const Calendar = lazy(() => import("./pages/Calendar"));
 const Clips = lazy(() => import("./pages/Clips"));
 const Videos = lazy(() => import("./pages/Videos"));
@@ -16,7 +17,8 @@ const App = () => {
         <NavBar />
         <Suspense fallback={<div>loading</div>}>
           <Routes>
-            <Route path="/" element={<Calendar />} />
+            <Route path="/" element={<Login />} />
+            <Route path="/login" element={<Calendar />} />
             <Route path="/todos" element={<div></div>} />
             <Route path="/clips" element={<Clips />} />
             <Route path="/videos" element={<Videos />} />

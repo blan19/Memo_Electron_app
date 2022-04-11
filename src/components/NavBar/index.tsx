@@ -4,7 +4,7 @@ import { VscCalendar } from "react-icons/vsc";
 import { BsListCheck, BsYoutube } from "react-icons/bs";
 import { GiPaperClip } from "react-icons/gi";
 import { flexCenter, flexColStart } from "@/lib/styles/common";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 interface OptionsType {
   path: string;
@@ -40,6 +40,11 @@ const NavBarLink = (options: OptionsType[]) => {
 
 const NavBar = () => {
   const link = useMemo(() => NavBarLink(options), [options]);
+  const { pathname } = useLocation();
+
+  if (pathname.includes("/")) {
+    return null;
+  }
   return (
     <NavBarContainer>
       <ul>{link}</ul>
