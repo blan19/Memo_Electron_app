@@ -35,6 +35,7 @@ const login: (
 const logout: () => void = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("user");
+  setAuthorizationToken(localStorage.token);
 };
 
 const setAuthorizationToken: (token: string | null) => void = (token) => {

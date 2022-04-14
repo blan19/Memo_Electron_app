@@ -3,36 +3,22 @@ import { normalize } from "styled-normalize";
 
 export default createGlobalStyle`
   ${normalize}
-  @font-face {
-  font-family: "Nanum Coding";
-  font-display: fallback;
-  src: url("../../fonts/NanumGothicCoding-Regular.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Nanum Coding";
-  font-display: fallback;
-  src: url("../../fonts/NanumGothicCoding-Bold.ttf") format("truetype");
-  font-weight: 700;
-  font-style: bold;
-}
-
   :root {
     /* Color */
     --color-bgColor: #FFFFFF;
-    --color-subBgColor: #e9ecef;
+    --color-subBgColor: #edf2ff;
+    --color-borderColor: #bac8ff;
     --color-primaryText: #000;
     --color-rPrimaryText: #fff;
     --color-subText: #adb5bd;
-    --color-mainColor: #495057;
+    --color-mainColor: #5c7cfa;
     /* Font */
-    --font-title-1: ;
-    --font-title-2: 3rem;
-    --font-sub-1: ;
-    --font-sub-2: 1.5rem;
+    --font-title-1: 3rem;
+    --font-title-2: 2.5rem;
+    --font-sub-1: 1.5rem;
+    --font-sub-2: 1.25rem;
     --font-main-1: 2rem;
+    --font-main-2: 1.75rem;
     --font-icon-1: ;
     --font-icon-2: ;
   }

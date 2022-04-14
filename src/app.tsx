@@ -18,7 +18,7 @@ const App = () => {
         <NavBar />
         <Suspense fallback={<div>loading</div>}>
           <Routes>
-            <Route path="/" element={<Calendar />} />
+            <Route path="calendar/*" element={<Calendar />} />
             <Route path="/login" element={<Login />} />
             <Route path="/todos" element={<div></div>} />
             <Route path="/clips" element={<Clips />} />

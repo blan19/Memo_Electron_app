@@ -1,10 +1,20 @@
-import React, { useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import styled from "styled-components";
-import { VscCalendar } from "react-icons/vsc";
-import { BsListCheck, BsYoutube } from "react-icons/bs";
-import { GiPaperClip } from "react-icons/gi";
-import { flexCenter, flexColStart } from "@/lib/styles/common";
-import { NavLink, useLocation } from "react-router-dom";
+import {
+  flexColStart,
+  VscCalendar,
+  BsListCheck,
+  BsYoutube,
+  GiPaperClip,
+  IoLogOutOutline,
+  flexColEnd,
+  flexColBetween,
+  NavBarLi,
+} from "@/lib/styles/common";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { logout } from "@/lib/api/auth";
+import { useDispatch } from "react-redux";
+import { resetUser } from "@/reducers/userSlice";
 
 interface OptionsType {
   path: string;
@@ -13,7 +23,7 @@ interface OptionsType {
 
 const options = [
   {
-    path: "/",
+    path: "/calendar",
     icon: <VscCalendar />,
   },
   {
@@ -40,7 +50,14 @@ const NavBarLink = (options: OptionsType[]) => {
 
 const NavBar = () => {
   const link = useMemo(() => NavBarLink(options), [options]);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { pathname } = useLocation();
+  const onLogout = useCallback(() => {
+    logout();
+    dispatch(resetUser());
+    navigate("/login");
+  }, []);
 
   if (pathname.includes("/login")) {
     return null;
@@ -48,7 +65,16 @@ const NavBar = () => {
 
   return (
     <NavBarContainer>
-      <ul>{link}</ul>
+      <div>
+        <ul>{link}</ul>
+      </div>
+      <div className="navbar-setting">
+        <li>
+          <a onClick={onLogout}>
+            <IoLogOutOutline />
+          </a>
+        </li>
+      </div>
     </NavBarContainer>
   );
 };
@@ -56,41 +82,20 @@ const NavBar = () => {
 export default NavBar;
 
 const NavBarContainer = styled.nav`
+  ${flexColBetween}
   width: 50px;
   height: 100vh;
-  background-color: #e9ecef;
+  background-color: var(--color-subBgColor);
+  div {
+    width: 100%;
+  }
   ul {
     ${flexColStart}
-    width: 100%;
-    height: 100%;
-    li {
-      width: 100%;
-      margin-top: 5px;
-      padding: 0 5px;
-      a {
-        width: 100%;
-        ${flexCenter}
-        padding: 3px 0;
-        border-radius: 5px;
-        cursor: pointer;
-        background-color: #fff;
-        svg {
-          font-size: 17.5px;
-          color: #000;
-        }
-        &:hover {
-          background-color: #495057;
-          svg {
-            color: #fff;
-          }
-        }
-      }
-      a.active {
-        background-color: #495057;
-        svg {
-          color: #fff;
-        }
-      }
-    }
+    ${NavBarLi}
+  }
+  .navbar-setting {
+    margin-bottom: 5px;
+    ${flexColEnd}
+    ${NavBarLi}
   }
 `;

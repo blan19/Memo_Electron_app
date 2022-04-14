@@ -1,4 +1,8 @@
 import { css, keyframes } from "styled-components";
+import { VscCalendar } from "react-icons/vsc";
+import { BsListCheck, BsYoutube } from "react-icons/bs";
+import { GiPaperClip } from "react-icons/gi";
+import { IoSettingsOutline, IoLogOutOutline } from "react-icons/io5";
 
 // * Flex
 const flexCenter = css`
@@ -19,6 +23,20 @@ const flexColStart = css`
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+`;
+
+const flexColEnd = css`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+`;
+
+const flexColBetween = css`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 const flexEvenly = css`
@@ -50,6 +68,39 @@ const Input = css`
   border: none;
   background: none;
   border-radius: 0.5rem;
+`;
+
+// * NavBar
+const NavBarLi = css`
+  li {
+    width: 100%;
+    margin-top: 5px;
+    padding: 0 5px;
+    a {
+      width: 100%;
+      ${flexCenter}
+      padding: 3px 0;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #fff;
+      svg {
+        font-size: 17.5px;
+        color: #000;
+      }
+      &:hover {
+        background-color: var(--color-mainColor);
+        svg {
+          color: #fff;
+        }
+      }
+    }
+    a.active {
+      background-color: var(--color-mainColor);
+      svg {
+        color: #fff;
+      }
+    }
+  }
 `;
 
 // * Animation
@@ -116,9 +167,19 @@ export {
   flexColStart,
   flexEvenly,
   flexStart,
+  flexColEnd,
+  flexColBetween,
   Button,
   Input,
+  NavBarLi,
   showup,
   reveal,
   rotationHand,
+  // icon
+  VscCalendar,
+  BsListCheck,
+  BsYoutube,
+  GiPaperClip,
+  IoSettingsOutline,
+  IoLogOutOutline,
 };

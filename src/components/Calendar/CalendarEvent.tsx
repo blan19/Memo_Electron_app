@@ -8,6 +8,7 @@ import CalendarModal from "./CalendarModal";
 import Modal from "../Modal";
 import { CalendarEventContainer } from "./Calendar.styles";
 import { addSelect } from "@/reducers/eventSlice";
+import axios from "axios";
 
 const CalendarEvent = () => {
   // * Calendar State
@@ -19,7 +20,6 @@ const CalendarEvent = () => {
   // * Calendar Event
   const onHandleSelectEvent = useCallback((selectInfo: DateSelectArg) => {
     setShow(true);
-    console.log(selectInfo);
     dispatch(
       addSelect({
         allDay: selectInfo.allDay,
@@ -28,17 +28,34 @@ const CalendarEvent = () => {
       })
     );
   }, []);
+  const check = useCallback(async () => {
+    await axios
+      .get(
+        "https://electron-memo.herokuapp.com/api/events?filters[user][id][$eq]=2"
+      )
+      .then((res) => console.log(res))
+      .catch((error) => console.log(error));
+  }, []);
+
+  useEffect(() => {
+    check();
+  }, []);
   return (
     <CalendarEventContainer>
       <FullCalendar
         plugins={[dayGridPlugin, interactionPlugin]}
+        headerToolbar={{
+          start: "prev",
+          center: "title",
+          end: "today next",
+        }}
         editable={true}
         selectable={true}
         selectMirror={true}
         dayMaxEvents={true}
         slotMinTime="00:00"
         locale="ko"
-        height="60rem"
+        height="45rem"
         initialView="dayGridMonth"
         events={events}
         // * event

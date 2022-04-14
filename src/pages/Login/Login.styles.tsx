@@ -67,7 +67,7 @@ const LoginForm = styled.form`
         top: 0.875rem;
         position: absolute;
         font-size: 2rem;
-        color: var(--color-subText);
+        color: var(--color-borderColor);
       }
       input {
         ${Input}
@@ -76,10 +76,10 @@ const LoginForm = styled.form`
         border: 1px solid var(--color-subBgColor);
         font-size: var(--font-sub-2);
         &:focus {
-          border: 1px solid var(--color-subText);
+          border: 1px solid var(--color-borderColor);
         }
         &::placeholder {
-          color: var(--color-subText);
+          color: var(--color-borderColor);
         }
       }
     }

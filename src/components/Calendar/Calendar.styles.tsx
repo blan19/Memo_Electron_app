@@ -4,19 +4,21 @@ import styled from "styled-components";
 // * Calendar Event
 
 const CalendarEventContainer = styled.section`
-  width: 55rem;
-  padding: 0 15px;
+  width: 100%;
   margin-top: 5px;
 
   /* calendar-root */
   .fc {
     width: 100%;
   }
+  .fc table {
+    font-size: 1rem;
+  }
 
   /* calendar-title */
   .fc-toolbar-title {
     font-size: 20px !important;
-    color: #495057 !important;
+    color: var(--color-mainColor) !important;
   }
 
   /* calendar-daygrid */
@@ -24,14 +26,43 @@ const CalendarEventContainer = styled.section`
     margin-top: 10px;
   }
 
+  .fc .fc-view-harness {
+    background-color: var(--color-subBgColor);
+    border-radius: 0.5rem;
+  }
+
   /* calendar-daygrid-day */
   .fc-daygrid-day {
     cursor: pointer;
   }
 
+  th {
+    color: var(--color-mainColor);
+  }
+
+  .fc-col-header {
+    margin-bottom: 1rem;
+  }
+
+  .fc-col-header-cell-cushion {
+    font-size: 1.25rem;
+  }
+
+  .fc-day-sun {
+    a {
+      color: #f03e3e !important;
+    }
+  }
+
   /* calendar-toolbar-button */
   .fc .fc-button {
     font-size: 1.25rem;
+    transition: background-color 0.4s ease;
+    border-radius: 0.5rem;
+    &:hover {
+      background-color: #364fc7;
+      border-color: #364fc7;
+    }
   }
   .fc .fc-button-primary {
     background-color: var(--color-mainColor);
@@ -48,7 +79,8 @@ const CalendarEventContainer = styled.section`
     cursor: not-allowed;
   }
   .fc-highlight {
-    background: var(--color-subBgColor) !important;
+    background: #fff !important;
+    border-radius: 0.5rem;
   }
   /* calendar-events-allDay */
   .fc-h-event {
@@ -80,23 +112,31 @@ const CalendarEventContainer = styled.section`
 // * Calendar Schedule
 
 const CalendarScheduleContainer = styled.section`
-  flex: 1;
-  padding: 0 15px;
-  margin-top: 5px;
-
+  height: 100%;
   /* schedule - title */
   .schedule-title {
+    margin-top: 15px;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    margin-bottom: 5px;
+    background-color: var(--color-subBgColor);
+    display: flex;
+    align-items: center;
     h1 {
-      font-size: var(--font-title-2);
+      font-size: var(--font-main-1);
       color: var(--color-mainColor);
     }
     p {
-      margin-top: 1rem;
-      font-size: var(--font-main-1);
+      margin-left: 1rem;
+      font-size: var(--font-sub-1);
       color: var(--color-subText);
     }
   }
 `;
+
+// * Calendar Schedule Events
+
+const CalendarScheduleEventsContainer = styled.div``;
 
 // * Calendar Modal
 
@@ -131,18 +171,21 @@ const CalendarModalForm = styled.form`
       outline: none;
       padding: 1rem;
       font-size: var(--font-sub-2);
-      border: 1px solid var(--color-subText);
+      border: 1px solid var(--color-subBgColor);
       border-radius: 0.5rem;
+      &::placeholder {
+        color: var(--color-borderColor);
+      }
     }
     input[type="text"]:focus {
-      border: 2px solid var(--color-subText);
+      border: 1px solid var(--color-borderColor);
     }
     label {
       cursor: pointer;
       font-size: var(--font-sub-2);
       margin-top: 1.5rem;
       padding: 1rem 1.5rem;
-      border: 1px solid var(--color-subText);
+      border: 1px solid var(--color-borderColor);
       border-radius: 0.5rem;
     }
     label.radio-checked {
@@ -173,11 +216,11 @@ const CalendarModalForm = styled.form`
     }
     button.calendar-form-button-register {
       background-color: var(--color-subBgColor);
-      border: 1px solid var(--color-subText);
+      border: 1px solid var(--color-borderColor);
       color: var(--color-primaryText);
     }
     button.calendar-form-button-cancle {
-      border: 1px solid var(--color-subText);
+      border: 1px solid var(--color-borderColor);
       color: var(--color-primaryText);
     }
   }
@@ -203,5 +246,6 @@ export {
   CalendarModalForm,
   CalendarEventContainer,
   CalendarScheduleContainer,
+  CalendarScheduleEventsContainer,
   CalendarModalError,
 };
