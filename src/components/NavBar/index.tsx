@@ -42,9 +42,10 @@ const NavBar = () => {
   const link = useMemo(() => NavBarLink(options), [options]);
   const { pathname } = useLocation();
 
-  if (pathname.includes("/")) {
+  if (pathname.includes("/login")) {
     return null;
   }
+
   return (
     <NavBarContainer>
       <ul>{link}</ul>

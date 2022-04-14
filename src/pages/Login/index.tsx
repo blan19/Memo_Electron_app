@@ -1,8 +1,13 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { LoginContainer, LoginError, LoginForm } from "./Login.styles";
 import { AiOutlineUser, AiOutlineLock } from "react-icons/ai";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
+import { login } from "@/lib/api/auth";
+import { api_base_url, api_login_url } from "../../constant/constant";
+import { useSelector } from "react-redux";
+import { RootState } from "@/reducers/index";
+import { useNavigate } from "react-router-dom";
 
 interface FormTypes {
   email: string;
@@ -10,6 +15,8 @@ interface FormTypes {
 }
 
 const Login = () => {
+  const { isLogin } = useSelector((state: RootState) => state.user);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -17,8 +24,13 @@ const Login = () => {
     formState: { errors },
   } = useForm<FormTypes>();
   const onSubmit = useCallback((data: FormTypes) => {
-    console.log(data);
+    const { email, password } = data;
+    login(`${api_base_url}${api_login_url}`, email, password);
   }, []);
+
+  useEffect(() => {
+    if (isLogin) navigate("/");
+  }, [isLogin]);
   return (
     <LoginContainer>
       <LoginForm onSubmit={handleSubmit(onSubmit)}>

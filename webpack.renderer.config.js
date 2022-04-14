@@ -3,7 +3,7 @@ const plugins = require("./webpack.plugins");
 const path = require("path");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
-const assets = ["images"];
+const assets = ["images", "fonts"];
 
 const copyAssets = assets.map((asset) => {
   return new CopyWebpackPlugin({
@@ -32,6 +32,7 @@ module.exports = {
       "@/lib": path.resolve(__dirname, "./src/lib"),
       "@/reducers": path.resolve(__dirname, "./src/reducers"),
       "@/types": path.resolve(__dirname, "./src/types"),
+      "@/constant": path.resolve(__dirname, "./src/constant"),
     },
     extensions: [".js", ".ts", ".jsx", ".tsx", ".css"],
   },

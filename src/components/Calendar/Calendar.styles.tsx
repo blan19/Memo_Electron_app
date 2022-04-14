@@ -31,7 +31,7 @@ const CalendarEventContainer = styled.section`
 
   /* calendar-toolbar-button */
   .fc .fc-button {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
   }
   .fc .fc-button-primary {
     background-color: var(--color-mainColor);
@@ -47,16 +47,33 @@ const CalendarEventContainer = styled.section`
     opacity: 1;
     cursor: not-allowed;
   }
+  .fc-highlight {
+    background: var(--color-subBgColor) !important;
+  }
   /* calendar-events-allDay */
   .fc-h-event {
     border: 1px solid var(--color-mainColor);
     background-color: var(--color-mainColor);
   }
   /* calednar-events-time */
+  .fc .fc-daygrid-day-top {
+    justify-content: center;
+  }
+  .fc .fc-daygrid-day.fc-day-today {
+    background-color: var(--color-subBgColor);
+  }
   .fc-daygrid-event-dot {
     /* border: 4px solid #3788d8; */
     /* border: calc(var(--fc-daygrid-event-dot-width, 8px) / 2) solid var(--fc-event-border-color, #3788d8); */
     display: none;
+  }
+  /* calendar-table */
+  .fc-theme-standard .fc-scrollgrid {
+    border: none;
+  }
+  .fc-theme-standard td,
+  .fc-theme-standard th {
+    border: none;
   }
 `;
 

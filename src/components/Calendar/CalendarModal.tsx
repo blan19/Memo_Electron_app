@@ -136,7 +136,6 @@ const CalendarModal: FunctionComponent<CalendarModalProps> = ({
                   <TimePicker
                     format="HH시"
                     showSecond={false}
-                    showMinute={false}
                     placeholder="시간을 선택해주세요"
                     {...field}
                   />

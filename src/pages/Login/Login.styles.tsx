@@ -50,7 +50,6 @@ const LoginForm = styled.form`
     }
     h1 {
       font-size: var(--font-title-2);
-      font-weight: 300;
     }
   }
 
@@ -95,6 +94,7 @@ const LoginForm = styled.form`
       background: var(--color-mainColor);
       font-size: var(--font-main-1);
       color: var(--color-bgColor);
+      transition: opacity 0.6s ease;
       &:hover {
         opacity: 0.85;
       }

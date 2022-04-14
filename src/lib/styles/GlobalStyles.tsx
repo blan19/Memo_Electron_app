@@ -3,7 +3,22 @@ import { normalize } from "styled-normalize";
 
 export default createGlobalStyle`
   ${normalize}
-  @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;1,100;1,300;1,400;1,700&display=swap');
+  @font-face {
+  font-family: "Nanum Coding";
+  font-display: fallback;
+  src: url("../../fonts/NanumGothicCoding-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Nanum Coding";
+  font-display: fallback;
+  src: url("../../fonts/NanumGothicCoding-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: bold;
+}
+
   :root {
     /* Color */
     --color-bgColor: #FFFFFF;
@@ -24,7 +39,7 @@ export default createGlobalStyle`
 
   html,
   body {
-    font-family: 'Lato', --apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Nanum Coding', --apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     background-color: #fff;
     font-size: 62.5%;
     @media screen and (max-width: 1280px) {

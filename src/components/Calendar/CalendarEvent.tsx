@@ -28,10 +28,6 @@ const CalendarEvent = () => {
       })
     );
   }, []);
-
-  useEffect(() => {
-    console.log(events);
-  }, [events]);
   return (
     <CalendarEventContainer>
       <FullCalendar

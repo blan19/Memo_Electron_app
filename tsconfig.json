@@ -15,7 +15,8 @@
       "@/components/*": ["components/*"],
       "@/lib/*": ["lib/*"],
       "@/reducers/*": ["reducers/*"],
-      "@/types/*": ["types/*"]
+      "@/types/*": ["types/*"],
+      "@/constant/*": ["constant/*"]
     }
   },
   "include": ["src/**/*"],

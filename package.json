@@ -47,6 +47,7 @@
           "@electron-forge/plugin-webpack",
           {
             "mainConfig": "./webpack.main.config.js",
+            "devContentSecurityPolicy": "connect-src 'self' https://electron-memo.herokuapp.com 'unsafe-eval'",
             "renderer": {
               "config": "./webpack.renderer.config.js",
               "entryPoints": [
@@ -91,13 +92,15 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "@fullcalendar/daygrid": "^5.10.1",
-    "@fullcalendar/interaction": "^5.10.1",
-    "@fullcalendar/react": "^5.10.1",
+    "@fullcalendar/daygrid": "^5.11.0",
+    "@fullcalendar/interaction": "^5.11.0",
+    "@fullcalendar/react": "^5.11.0",
     "@hookform/error-message": "^2.0.0",
     "@reduxjs/toolkit": "^1.8.1",
+    "axios": "^0.26.1",
     "dayjs": "^1.11.0",
     "electron-squirrel-startup": "^1.0.0",
+    "jwt-decode": "^3.1.2",
     "rc-time-picker": "^3.7.3",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
