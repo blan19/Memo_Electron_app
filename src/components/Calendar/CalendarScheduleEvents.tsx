@@ -4,7 +4,7 @@ import { CalendarScheduleEventsContainer } from "./Calendar.styles";
 const CalendarScheduleEvents = () => {
   return (
     <CalendarScheduleEventsContainer>
-      <h1>Events</h1>
+      {/* <h1>Events</h1> */}
     </CalendarScheduleEventsContainer>
   );
 };

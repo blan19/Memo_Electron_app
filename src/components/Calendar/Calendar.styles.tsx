@@ -58,6 +58,15 @@ const CalendarEventContainer = styled.section<{ Mine: boolean }>`
       color: #f03e3e !important;
     }
   }
+  a.fc-event {
+    ${flexCenter}
+    font-size: 1rem;
+    .fc-event-time {
+    }
+    .fc-event-title {
+      ${flexCenter}
+    }
+  }
 
   /* calendar-toolbar-button */
   .fc .fc-button {

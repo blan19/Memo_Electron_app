@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import FullCalendar, { DateSelectArg, EventInput } from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
@@ -10,22 +10,26 @@ import { addSelect } from "@/reducers/eventSlice";
 import { SelectType } from "@/types/events.type";
 import { UserType } from "@/reducers/userSlice";
 import { useParams } from "react-router-dom";
+import { useGetEventsByIdQuery } from "@/reducers/service/events";
 
 interface CalendarEventProps {
-  events: EventInput[];
   select: SelectType;
   user: UserType;
 }
 
-const CalendarEvent: React.FC<CalendarEventProps> = ({
-  events,
-  select,
-  user,
-}) => {
+const CalendarEvent: React.FC<CalendarEventProps> = ({ select, user }) => {
   const params = useParams();
   // * Calendar State
   const [show, setShow] = useState(false);
   // * Calendar Redux
+  const { events, refetch } = useGetEventsByIdQuery(params.id, {
+    selectFromResult: ({ data }) => ({
+      events: data?.data.map((event) => ({
+        ...event.attributes,
+        id: String(event.id),
+      })),
+    }),
+  });
   const dispatch = useDispatch();
 
   // * Calendar Event
@@ -39,6 +43,9 @@ const CalendarEvent: React.FC<CalendarEventProps> = ({
       })
     );
   }, []);
+  useEffect(() => {
+    console.log(events);
+  }, [events]);
   return (
     <CalendarEventContainer
       Mine={Number(params.id) === user.user.id ? true : false}
@@ -61,11 +68,18 @@ const CalendarEvent: React.FC<CalendarEventProps> = ({
         events={events}
         // * event
         select={onHandleSelectEvent}
+        eventClick={(arg) => console.log(arg)}
         eventDrop={(arg) => console.log(arg)}
         eventResize={(arg) => console.log(arg)}
       />
       <Modal show={show} setShow={setShow}>
-        <CalendarModal dispatch={dispatch} setShow={setShow} select={select} />
+        <CalendarModal
+          dispatch={dispatch}
+          setShow={setShow}
+          select={select}
+          user={user}
+          refetch={refetch}
+        />
       </Modal>
     </CalendarEventContainer>
   );

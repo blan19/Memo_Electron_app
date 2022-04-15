@@ -8,6 +8,9 @@ import { ErrorMessage } from "@hookform/error-message";
 import { addEvents } from "@/reducers/eventSlice";
 import { uid } from "uid";
 import dayjs from "dayjs";
+import { addEvent } from "@/lib/api/events";
+import { api_base_url, api_events_url } from "@/constant/constant";
+import { UserType } from "@/reducers/userSlice";
 
 interface FormProps {
   title: string;
@@ -19,6 +22,8 @@ interface CalendarModalProps {
   select: SelectType;
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
   dispatch: Dispatch<any>;
+  user: UserType;
+  refetch: () => void;
 }
 
 const allDayObj = {
@@ -30,6 +35,8 @@ const CalendarModal: FunctionComponent<CalendarModalProps> = ({
   select,
   setShow,
   dispatch,
+  user,
+  refetch,
 }) => {
   const {
     register,
@@ -46,21 +53,21 @@ const CalendarModal: FunctionComponent<CalendarModalProps> = ({
   const allDay = watch("allDay");
   const onSubmit = useCallback((data: FormProps) => {
     const { title, time, allDay } = data;
-    dispatch(
-      addEvents(
-        allDayObj[allDay]
-          ? {
-              id: uid(7),
-              title,
-              start: select.start,
-            }
-          : {
-              id: uid(7),
-              title,
-              start: select.start + `T${dayjs(time._d).format("HH")}:00:00`,
-            }
-      )
+    addEvent(
+      `${api_base_url}${api_events_url}`,
+      allDayObj[allDay]
+        ? {
+            title,
+            start: select.start,
+            user: user.user.id,
+          }
+        : {
+            title,
+            start: select.start + `T${dayjs(time._d).format("HH")}:00:00`,
+            user: user.user.id,
+          }
     );
+    refetch();
     reset();
     setShow(false);
   }, []);

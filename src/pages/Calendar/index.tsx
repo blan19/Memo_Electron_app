@@ -4,15 +4,19 @@ import {
   CalendarUser,
 } from "@/components/Calendar";
 import { RootState } from "@/reducers/index";
+import { UserType } from "@/reducers/userSlice";
 import React from "react";
 import { useSelector } from "react-redux";
 import { Route, Routes, Navigate } from "react-router-dom";
 import styled from "styled-components";
 
-const Calendar = () => {
+interface CalendarProps {
+  user: UserType;
+}
+
+const Calendar: React.FC<CalendarProps> = ({ user }) => {
   const {
-    user,
-    event: { events, select },
+    event: { select },
   } = useSelector((state: RootState) => state);
   return (
     <CalendarContainer>
@@ -21,9 +25,7 @@ const Calendar = () => {
         <Route index element={<Navigate replace to={`${user.user.id}`} />} />
         <Route
           path=":id"
-          element={
-            <CalendarEvent user={user} events={events} select={select} />
-          }
+          element={<CalendarEvent user={user} select={select} />}
         />
       </Routes>
       <CalendarSchedule />
