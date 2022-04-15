@@ -1,19 +1,30 @@
-import { CalendarSchedule, CalendarEvent } from "@/components/Calendar";
+import {
+  CalendarSchedule,
+  CalendarEvent,
+  CalendarUser,
+} from "@/components/Calendar";
+import { RootState } from "@/reducers/index";
 import React from "react";
-import { NavLink, Route, Routes } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Route, Routes, Navigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Calendar = () => {
+  const {
+    user,
+    event: { events, select },
+  } = useSelector((state: RootState) => state);
   return (
     <CalendarContainer>
-      <ul>
-        <li>
-          <NavLink to="1">me</NavLink>
-        </li>
-        <li></li>
-      </ul>
+      <CalendarUser user={user} />
       <Routes>
-        <Route path=":id" element={<CalendarEvent />} />
+        <Route index element={<Navigate replace to={`${user.user.id}`} />} />
+        <Route
+          path=":id"
+          element={
+            <CalendarEvent user={user} events={events} select={select} />
+          }
+        />
       </Routes>
       <CalendarSchedule />
     </CalendarContainer>

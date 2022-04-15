@@ -21,10 +21,15 @@ const login: (
   localStorage.setItem("token", jwt);
   localStorage.setItem(
     "user",
-    JSON.stringify({ email: resUser.email, username: resUser.username })
+    JSON.stringify({
+      email: resUser.email,
+      username: resUser.username,
+      id: resUser.id,
+    })
   );
   setAuthorizationToken(jwt);
   setAuthorizationUser(jwt, {
+    id: resUser.id,
     email: resUser.email,
     username: resUser.username,
   });

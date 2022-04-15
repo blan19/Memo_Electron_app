@@ -1,20 +1,31 @@
-import React, { useCallback, useEffect, useState } from "react";
-import FullCalendar, { DateSelectArg } from "@fullcalendar/react";
+import React, { useCallback, useState } from "react";
+import FullCalendar, { DateSelectArg, EventInput } from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "reducers";
+import { useDispatch } from "react-redux";
 import CalendarModal from "./CalendarModal";
 import Modal from "../Modal";
 import { CalendarEventContainer } from "./Calendar.styles";
 import { addSelect } from "@/reducers/eventSlice";
-import axios from "axios";
+import { SelectType } from "@/types/events.type";
+import { UserType } from "@/reducers/userSlice";
+import { useParams } from "react-router-dom";
 
-const CalendarEvent = () => {
+interface CalendarEventProps {
+  events: EventInput[];
+  select: SelectType;
+  user: UserType;
+}
+
+const CalendarEvent: React.FC<CalendarEventProps> = ({
+  events,
+  select,
+  user,
+}) => {
+  const params = useParams();
   // * Calendar State
   const [show, setShow] = useState(false);
   // * Calendar Redux
-  const { events, select } = useSelector((state: RootState) => state.event);
   const dispatch = useDispatch();
 
   // * Calendar Event
@@ -28,20 +39,10 @@ const CalendarEvent = () => {
       })
     );
   }, []);
-  const check = useCallback(async () => {
-    await axios
-      .get(
-        "https://electron-memo.herokuapp.com/api/events?filters[user][id][$eq]=2"
-      )
-      .then((res) => console.log(res))
-      .catch((error) => console.log(error));
-  }, []);
-
-  useEffect(() => {
-    check();
-  }, []);
   return (
-    <CalendarEventContainer>
+    <CalendarEventContainer
+      Mine={Number(params.id) === user.user.id ? true : false}
+    >
       <FullCalendar
         plugins={[dayGridPlugin, interactionPlugin]}
         headerToolbar={{
@@ -49,9 +50,9 @@ const CalendarEvent = () => {
           center: "title",
           end: "today next",
         }}
-        editable={true}
-        selectable={true}
-        selectMirror={true}
+        editable={Number(params.id) === user.user.id ? true : false}
+        selectable={Number(params.id) === user.user.id ? true : false}
+        selectMirror={Number(params.id) === user.user.id ? true : false}
         dayMaxEvents={true}
         slotMinTime="00:00"
         locale="ko"

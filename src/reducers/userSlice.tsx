@@ -9,6 +9,7 @@ export interface UserType {
 const initialState: UserType = {
   isLogin: false,
   user: {
+    id: 0,
     email: "",
     username: "",
   },
@@ -21,7 +22,7 @@ export const userSlice = createSlice({
     resetUser: (state) => ({
       ...state,
       isLogin: false,
-      user: { email: "", username: "" },
+      user: { email: "", username: "", id: 0 },
     }),
     setCurrentUser: (state, action: PayloadAction<IStrapiUser>) => ({
       ...state,

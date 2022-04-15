@@ -15,7 +15,10 @@ interface FormTypes {
 }
 
 const Login = () => {
-  const { isLogin } = useSelector((state: RootState) => state.user);
+  const {
+    isLogin,
+    user: { id },
+  } = useSelector((state: RootState) => state.user);
   const navigate = useNavigate();
   const {
     register,
@@ -29,7 +32,7 @@ const Login = () => {
   }, []);
 
   useEffect(() => {
-    if (isLogin) navigate("/");
+    if (isLogin) navigate(`/calendar/${id}`);
   }, [isLogin]);
   return (
     <LoginContainer>

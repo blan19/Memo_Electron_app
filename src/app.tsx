@@ -1,9 +1,10 @@
 import React, { lazy, Suspense } from "react";
-import { HashRouter, Route, Routes } from "react-router-dom";
+import { HashRouter, Route, Routes, Navigate } from "react-router-dom";
 import styled from "styled-components";
 import NavBar from "./components/NavBar";
 import GlobalStyles from "./lib/styles/GlobalStyles";
 import "./fonts/font.css";
+import PrivateRoute from "./components/PrivateRoute";
 
 const Login = lazy(() => import("./pages/Login"));
 const Calendar = lazy(() => import("./pages/Calendar"));
@@ -18,7 +19,15 @@ const App = () => {
         <NavBar />
         <Suspense fallback={<div>loading</div>}>
           <Routes>
-            <Route path="calendar/*" element={<Calendar />} />
+            <Route index element={<Navigate replace to="calendar/*" />} />
+            <Route
+              path="calendar/*"
+              element={
+                <PrivateRoute>
+                  <Calendar />
+                </PrivateRoute>
+              }
+            />
             <Route path="/login" element={<Login />} />
             <Route path="/todos" element={<div></div>} />
             <Route path="/clips" element={<Clips />} />

@@ -1,9 +1,14 @@
-import { Button, flexColCenter, flexEvenly } from "@/lib/styles/common";
+import {
+  Button,
+  flexCenter,
+  flexColCenter,
+  flexEvenly,
+} from "@/lib/styles/common";
 import styled from "styled-components";
 
 // * Calendar Event
 
-const CalendarEventContainer = styled.section`
+const CalendarEventContainer = styled.section<{ Mine: boolean }>`
   width: 100%;
   margin-top: 5px;
 
@@ -33,7 +38,7 @@ const CalendarEventContainer = styled.section`
 
   /* calendar-daygrid-day */
   .fc-daygrid-day {
-    cursor: pointer;
+    cursor: ${(props) => (props.Mine ? "pointer" : null)};
   }
 
   th {
@@ -137,6 +142,30 @@ const CalendarScheduleContainer = styled.section`
 // * Calendar Schedule Events
 
 const CalendarScheduleEventsContainer = styled.div``;
+
+// * Calendar User
+
+const CalendarUserContainer = styled.nav`
+  margin: 5px 0;
+  ul {
+    ${flexCenter}
+  }
+  li {
+    padding: 0.5rem 1rem;
+    background-color: var(--color-subBgColor);
+    border-radius: 0.5rem;
+    margin: 0 0.5rem;
+  }
+  a {
+    font-size: var(--font-sub-2);
+    text-decoration: none;
+    color: var(--color-subText);
+  }
+  a.active {
+    color: var(--color-mainColor);
+    font-weight: 700;
+  }
+`;
 
 // * Calendar Modal
 
@@ -248,4 +277,5 @@ export {
   CalendarScheduleContainer,
   CalendarScheduleEventsContainer,
   CalendarModalError,
+  CalendarUserContainer,
 };
