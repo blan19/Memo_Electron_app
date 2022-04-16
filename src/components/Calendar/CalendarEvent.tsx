@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import FullCalendar, { DateSelectArg, EventInput } from "@fullcalendar/react";
+import FullCalendar, { DateSelectArg } from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { useDispatch } from "react-redux";
