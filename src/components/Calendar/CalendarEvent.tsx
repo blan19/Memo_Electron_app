@@ -1,5 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
-import FullCalendar, { DateSelectArg } from "@fullcalendar/react";
+import FullCalendar, {
+  DateSelectArg,
+  EventClickArg,
+} from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import { useDispatch } from "react-redux";
@@ -11,6 +14,9 @@ import { SelectType } from "@/types/events.type";
 import { UserType } from "@/reducers/userSlice";
 import { useParams } from "react-router-dom";
 import { useGetEventsByIdQuery } from "@/reducers/service/events";
+import CalendarDelete from "./CalendarDelete";
+import { updateEvent } from "@/lib/api/events";
+import { api_base_url, api_events_url } from "@/constant/constant";
 
 interface CalendarEventProps {
   select: SelectType;
@@ -20,7 +26,9 @@ interface CalendarEventProps {
 const CalendarEvent: React.FC<CalendarEventProps> = ({ select, user }) => {
   const params = useParams();
   // * Calendar State
+  const [target, setTarget] = useState("");
   const [show, setShow] = useState(false);
+  const [visible, setVisible] = useState(false);
   // * Calendar Redux
   const { events, refetch } = useGetEventsByIdQuery(params.id, {
     selectFromResult: ({ data }) => ({
@@ -43,13 +51,25 @@ const CalendarEvent: React.FC<CalendarEventProps> = ({ select, user }) => {
       })
     );
   }, []);
-  useEffect(() => {
-    console.log(events);
-  }, [events]);
+
+  // * Calendar Control
+  const CalendarControl = useCallback(
+    () => (Number(params.id) === user.user.id ? true : false),
+    [user, params]
+  );
+  const onDelete = useCallback(
+    (id: string) => {
+      if (Number(params.id) === user.user.id) {
+        setVisible(true);
+        setTarget(id);
+      } else {
+        return;
+      }
+    },
+    [params, user]
+  );
   return (
-    <CalendarEventContainer
-      Mine={Number(params.id) === user.user.id ? true : false}
-    >
+    <CalendarEventContainer Mine={CalendarControl()}>
       <FullCalendar
         plugins={[dayGridPlugin, interactionPlugin]}
         headerToolbar={{
@@ -57,9 +77,9 @@ const CalendarEvent: React.FC<CalendarEventProps> = ({ select, user }) => {
           center: "title",
           end: "today next",
         }}
-        editable={Number(params.id) === user.user.id ? true : false}
-        selectable={Number(params.id) === user.user.id ? true : false}
-        selectMirror={Number(params.id) === user.user.id ? true : false}
+        editable={CalendarControl()}
+        selectable={CalendarControl()}
+        selectMirror={CalendarControl()}
         dayMaxEvents={true}
         slotMinTime="00:00"
         locale="ko"
@@ -68,9 +88,21 @@ const CalendarEvent: React.FC<CalendarEventProps> = ({ select, user }) => {
         events={events}
         // * event
         select={onHandleSelectEvent}
-        eventClick={(arg) => console.log(arg)}
-        eventDrop={(arg) => console.log(arg)}
-        eventResize={(arg) => console.log(arg)}
+        eventClick={(arg: EventClickArg) => onDelete(arg.event.id)}
+        eventDrop={(arg) =>
+          updateEvent(
+            `${api_base_url}${api_events_url}/${arg.event.id}`,
+            arg.event.startStr,
+            arg.event.endStr
+          ).then(() => refetch())
+        }
+        eventResize={(arg) =>
+          updateEvent(
+            `${api_base_url}${api_events_url}/${arg.event.id}`,
+            arg.event.startStr,
+            arg.event.endStr
+          ).then(() => refetch())
+        }
       />
       <Modal show={show} setShow={setShow}>
         <CalendarModal
@@ -78,6 +110,14 @@ const CalendarEvent: React.FC<CalendarEventProps> = ({ select, user }) => {
           setShow={setShow}
           select={select}
           user={user}
+          refetch={refetch}
+        />
+      </Modal>
+      <Modal show={visible} setShow={setVisible}>
+        <CalendarDelete
+          setShow={setVisible}
+          target={target}
+          setTarget={setTarget}
           refetch={refetch}
         />
       </Modal>

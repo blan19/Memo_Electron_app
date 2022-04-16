@@ -8,4 +8,19 @@ const addEvent = async (
   return res.data;
 };
 
-export { addEvent };
+const deleteEvent = async (url: string) => {
+  const res = await axios.delete(url);
+  return res.data;
+};
+
+const updateEvent = async (url: string, start: string, end: string) => {
+  const res = await axios.put(url, {
+    data: {
+      start,
+      end: end === "" ? null : end,
+    },
+  });
+  return res.data;
+};
+
+export { addEvent, deleteEvent, updateEvent };

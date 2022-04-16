@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useLayoutEffect } from "react";
 import { LoginContainer, LoginError, LoginForm } from "./Login.styles";
 import { AiOutlineUser, AiOutlineLock } from "react-icons/ai";
 import { useForm } from "react-hook-form";
@@ -31,7 +31,7 @@ const Login = () => {
     login(`${api_base_url}${api_login_url}`, email, password);
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (isLogin) navigate(`/calendar/${id}`);
   }, [isLogin]);
   return (

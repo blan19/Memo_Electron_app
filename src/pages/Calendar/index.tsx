@@ -28,7 +28,7 @@ const Calendar: React.FC<CalendarProps> = ({ user }) => {
           element={<CalendarEvent user={user} select={select} />}
         />
       </Routes>
-      <CalendarSchedule />
+      <CalendarSchedule user={user} />
     </CalendarContainer>
   );
 };

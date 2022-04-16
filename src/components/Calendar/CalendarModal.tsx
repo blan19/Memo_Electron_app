@@ -5,8 +5,6 @@ import { Controller, useForm } from "react-hook-form";
 import TimePicker from "rc-time-picker";
 import "rc-time-picker/assets/index.css";
 import { ErrorMessage } from "@hookform/error-message";
-import { addEvents } from "@/reducers/eventSlice";
-import { uid } from "uid";
 import dayjs from "dayjs";
 import { addEvent } from "@/lib/api/events";
 import { api_base_url, api_events_url } from "@/constant/constant";
@@ -66,8 +64,7 @@ const CalendarModal: FunctionComponent<CalendarModalProps> = ({
             start: select.start + `T${dayjs(time._d).format("HH")}:00:00`,
             user: user.user.id,
           }
-    );
-    refetch();
+    ).then(() => refetch());
     reset();
     setShow(false);
   }, []);
@@ -161,13 +158,13 @@ const CalendarModal: FunctionComponent<CalendarModalProps> = ({
           </>
         )}
       </div>
-      <div className="calednar-form-divider"></div>
-      <div className="calendar-form-button">
-        <button className="calendar-form-button-register" type="submit">
+      <div className="form-divider"></div>
+      <div className="form-button">
+        <button className="form-button-register" type="submit">
           등록
         </button>
         <button
-          className="calendar-form-button-cancle"
+          className="form-button-cancle"
           type="button"
           onClick={() => setShow(false)}
         >

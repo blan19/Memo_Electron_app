@@ -1,5 +1,5 @@
 import { api_base_url } from "@/constant/constant";
-import { IStrapiEvent, IStrapiRes } from "@/types/events.type";
+import { IStrapiRes } from "@/types/events.type";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const eventsApi = createApi({
@@ -9,14 +9,10 @@ export const eventsApi = createApi({
     getEventsById: builder.query<IStrapiRes, string>({
       query: (id) => `events?filters[user][id][$eq]=${id}`,
     }),
-    addEvent: builder.mutation<IStrapiRes, IStrapiEvent>({
-      query: (body) => ({
-        url: "events",
-        method: "POST",
-        body,
-      }),
+    getEventsByDay: builder.query<IStrapiRes, string>({
+      query: (start) => `events?filters[start][$eq]=${start}`,
     }),
   }),
 });
 
-export const { useGetEventsByIdQuery } = eventsApi;
+export const { useGetEventsByIdQuery, useGetEventsByDayQuery } = eventsApi;

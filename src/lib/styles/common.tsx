@@ -3,6 +3,7 @@ import { VscCalendar } from "react-icons/vsc";
 import { BsListCheck, BsYoutube } from "react-icons/bs";
 import { GiPaperClip } from "react-icons/gi";
 import { IoSettingsOutline, IoLogOutOutline } from "react-icons/io5";
+import { AiOutlineClockCircle } from "react-icons/ai";
 
 // * Flex
 const flexCenter = css`
@@ -49,6 +50,12 @@ const flexStart = css`
   display: flex;
   align-items: center;
   justify-content: flex-start;
+`;
+
+const flexBetween = css`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 // * Button
@@ -166,6 +173,7 @@ export {
   flexColCenter,
   flexColStart,
   flexEvenly,
+  flexBetween,
   flexStart,
   flexColEnd,
   flexColBetween,
@@ -182,4 +190,5 @@ export {
   GiPaperClip,
   IoSettingsOutline,
   IoLogOutOutline,
+  AiOutlineClockCircle,
 };

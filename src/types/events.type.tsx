@@ -26,4 +26,18 @@ interface IStrapiRes {
   meta: IStrapiResMeta;
 }
 
-export { SelectType, IStrapiEvent, IStrapiResData, IStrapiRes, IStrapiResMeta };
+interface IEvents {
+  id: string;
+  title: string;
+  start: string;
+  end?: string;
+}
+
+export {
+  SelectType,
+  IStrapiEvent,
+  IStrapiResData,
+  IStrapiRes,
+  IStrapiResMeta,
+  IEvents,
+};

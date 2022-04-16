@@ -1,5 +1,6 @@
 import {
   Button,
+  flexBetween,
   flexCenter,
   flexColCenter,
   flexEvenly,
@@ -21,9 +22,10 @@ const CalendarEventContainer = styled.section<{ Mine: boolean }>`
   }
 
   /* calendar-title */
-  .fc-toolbar-title {
-    font-size: 20px !important;
+  .fc .fc-toolbar-title {
+    font-size: var(--font-title-1);
     color: var(--color-mainColor) !important;
+    margin-left: 5.85rem;
   }
 
   /* calendar-daygrid */
@@ -64,7 +66,6 @@ const CalendarEventContainer = styled.section<{ Mine: boolean }>`
     .fc-event-time {
     }
     .fc-event-title {
-      ${flexCenter}
     }
   }
 
@@ -150,7 +151,46 @@ const CalendarScheduleContainer = styled.section`
 
 // * Calendar Schedule Events
 
-const CalendarScheduleEventsContainer = styled.div``;
+const CalendarScheduleEventsContainer = styled.ul`
+  height: calc(100% - 26.5px - 5rem);
+  overflow-y: scroll;
+  background-color: var(--color-subBgColor);
+  border-radius: 0.5rem;
+  li {
+    ${flexBetween}
+    margin: 1rem;
+    background-color: var(--color-mainColor);
+    border-radius: 0.5rem;
+    padding: 1rem;
+  }
+  .today-title {
+    h1 {
+      color: #fff;
+      font-size: var(--font-sub-1);
+    }
+  }
+  .today-time {
+    display: flex;
+    align-items: center;
+    .today-time-icon {
+      svg {
+        color: var(--color-subBgColor);
+        font-size: 2rem;
+      }
+    }
+    .today-time-content {
+      background-color: #fff;
+      ${flexCenter}
+      margin-left: 1rem;
+      padding: 01rem;
+      border-radius: 0.5rem;
+      h1 {
+        font-size: var(--font-sub-2);
+        font-weight: 400;
+      }
+    }
+  }
+`;
 
 // * Calendar User
 
@@ -179,10 +219,6 @@ const CalendarUserContainer = styled.nav`
 // * Calendar Modal
 
 const CalendarModalForm = styled.form`
-  width: 100%;
-  padding: 2rem 1rem;
-  background-color: var(--color-bgColor);
-  border-radius: 0.5rem;
   .calendar-form-title {
     ${flexColCenter}
     h1 {
@@ -247,26 +283,17 @@ const CalendarModalForm = styled.form`
       display: none;
     }
   }
-  .calendar-form-button {
-    ${flexEvenly}
-    button {
-      ${Button}
+`;
+
+// * Calendar Delete
+const CalendarDeleteContainer = styled.form`
+  .calendar-delete-title {
+    ${flexColCenter}
+    h1 {
+      color: var(--color-mainColor);
+      font-size: var(--font-main-1);
+      font-weight: 500;
     }
-    button.calendar-form-button-register {
-      background-color: var(--color-subBgColor);
-      border: 1px solid var(--color-borderColor);
-      color: var(--color-primaryText);
-    }
-    button.calendar-form-button-cancle {
-      border: 1px solid var(--color-borderColor);
-      color: var(--color-primaryText);
-    }
-  }
-  .calednar-form-divider {
-    margin: 2.5rem 0;
-    width: 100%;
-    height: 1px;
-    background-color: var(--color-subBgColor);
   }
 `;
 
@@ -287,4 +314,5 @@ export {
   CalendarScheduleEventsContainer,
   CalendarModalError,
   CalendarUserContainer,
+  CalendarDeleteContainer,
 };

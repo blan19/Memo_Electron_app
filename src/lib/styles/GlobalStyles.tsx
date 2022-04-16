@@ -11,6 +11,7 @@ export default createGlobalStyle`
     --color-primaryText: #000;
     --color-rPrimaryText: #fff;
     --color-subText: #adb5bd;
+    --color-subColor: #f1f3f5;
     --color-mainColor: #5c7cfa;
     /* Font */
     --font-title-1: 3rem;
